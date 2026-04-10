@@ -13,3 +13,8 @@ dependencies = [
     "scipy>=1.17.1",
     "torch>=2.11.0",
 ]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1",
+]

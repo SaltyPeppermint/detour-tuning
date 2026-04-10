@@ -11,9 +11,10 @@ import polars as pl
 
 optuna.logging.set_verbosity(optuna.logging.WARNING)
 
-CAVIAR_ROOT = Path(__file__).resolve().parent.parent
+CAVIAR_ROOT = Path(__file__).resolve().parent / "caviar"
+print(CAVIAR_ROOT)
 
-EXPRESSIONS_FILE = "./data/prefix/evaluation.csv"
+EXPRESSIONS_FILE = CAVIAR_ROOT / "data/prefix/evaluation.csv"
 ITER_LIMIT = 10_000_000
 NODE_LIMIT = 10_000_000
 TIME_LIMIT = 3
@@ -76,7 +77,7 @@ def objective(trial: optuna.Trial) -> float:
     }
     out_path = (
         str(trial.study.user_attrs["tmpdir"])
-        + f"/detour_{'_'.join(str(v) for v in params.values())}.csv"
+        + f"/caviar_detour_{'_'.join(str(v) for v in params.values())}.csv"
     )
     # n_total = N_TRIALS + len(INITIAL_SAMPLES)
     # params_str = "  ".join(f"{k}={v}" for k, v in params.items())
