@@ -1,0 +1,12 @@
+[submodule "caviar"]
+	path = caviar
+	url = https://github.com/SaltyPeppermint/caviar.git
+	branch = detour
+[submodule "szalinski"]
+	path = szalinski
+	url = git@github.com:memoryleak47/szalinski.git
+	branch = detour
+[submodule "lean-egg"]
+	path = lean-egg
+	url = git@github.com:marcusrossel/lean-egg.git
+	branch = detour
