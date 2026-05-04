@@ -62,6 +62,7 @@
             samply
             nixd
             nixfmt
+            racket
           ]);
 
           buildInputs = with pkgs; [
