@@ -10,3 +10,6 @@
 	path = lean-egg
 	url = git@github.com:marcusrossel/lean-egg.git
 	branch = detour
+[submodule "herbie"]
+	path = herbie
+	url = git@github.com:memoryleak47/herbie.git
