@@ -8,6 +8,7 @@
 #   5. Compares against the precomputed baseline `original` file via the same
 #      logic as cmp.py and returns the chosen objective.
 
+import os
 import re
 import subprocess
 import sys
@@ -65,10 +66,12 @@ def make_install() -> None:
 def run_herbie() -> None:
     if OUT_FILE.exists():
         OUT_FILE.unlink()
+    env = {**os.environ, "EQSAT_FN": "detour"}
     subprocess.run(
         ["bash", str(RUN_SH)],
         check=True,
         cwd=HERBIE_ROOT,
+        env=env,
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )

@@ -48,6 +48,7 @@
           ]
           ++ (with pkgs; [
             pkg-config
+            cmake
             lldb
             clang
             lld
@@ -69,6 +70,9 @@
             fontconfig
             freetype
             expat
+            mpfr
+            gmp
+            mpfi
           ];
 
           LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath (
@@ -79,6 +83,9 @@
               expat
               vulkan-loader
               libGL
+              mpfr
+              gmp
+              mpfi
             ]
           );
         };
