@@ -27,16 +27,17 @@ ORIGINAL_FILE = HERBIE_ROOT / "original"
 
 # Objective: "dwins" (maximise detour wins vs original baseline)
 #         or "total_cost" (minimise sum of detour costs).
-OBJECTIVE = "dwins"
+OBJECTIVE = "total_cost"
 
 N_TRIALS = 50
 RNG_SEED = 42
 
 PARAMS: dict[str, tuple[int, int]] = {
-    "offset": (1, 100_000),
+    "offset": (1, 1000),
 }
 
 INITIAL_SAMPLES: list[dict[str, int]] = [
+    {"offset": 1},
     {"offset": 30},
     {"offset": 50},
 ]
@@ -107,7 +108,8 @@ def evaluate() -> tuple[int, int, int]:
 
 def objective(trial: optuna.Trial) -> float:
     params = {
-        name: trial.suggest_int(name, low, high) for name, (low, high) in PARAMS.items()
+        name: trial.suggest_int(name, low, high, log=True)
+        for name, (low, high) in PARAMS.items()
     }
     patch_offset(params["offset"])
     make_install()
@@ -129,6 +131,9 @@ def optimise() -> None:
     direction = "maximize" if OBJECTIVE == "dwins" else "minimize"
     start = datetime.now()
     print(f"Start: {start:%Y-%m-%d %H:%M:%S}  objective={OBJECTIVE} ({direction})")
+
+    original_costs = parse_costs(ORIGINAL_FILE)
+    print(f"Original: n={len(original_costs)}  total_cost={sum(original_costs)}")
 
     sampler = optuna.samplers.GPSampler(
         seed=RNG_SEED, n_startup_trials=10, deterministic_objective=True
